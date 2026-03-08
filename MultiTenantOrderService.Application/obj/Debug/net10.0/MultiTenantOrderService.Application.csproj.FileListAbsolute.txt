@@ -1,0 +1,17 @@
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/bin/Debug/net10.0/MultiTenantOrderService.Application.deps.json
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/bin/Debug/net10.0/MultiTenantOrderService.Application.dll
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/bin/Debug/net10.0/MultiTenantOrderService.Application.pdb
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/bin/Debug/net10.0/MultiTenantOrderService.Domain.dll
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/bin/Debug/net10.0/MultiTenantOrderService.Infrastructure.dll
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/bin/Debug/net10.0/MultiTenantOrderService.Domain.pdb
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/bin/Debug/net10.0/MultiTenantOrderService.Infrastructure.pdb
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/obj/Debug/net10.0/MultiTenantOrderService.Application.csproj.AssemblyReference.cache
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/obj/Debug/net10.0/MultiTenantOrderService.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/obj/Debug/net10.0/MultiTenantOrderService.Application.AssemblyInfoInputs.cache
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/obj/Debug/net10.0/MultiTenantOrderService.Application.AssemblyInfo.cs
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/obj/Debug/net10.0/MultiTenantOrderService.Application.csproj.CoreCompileInputs.cache
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/obj/Debug/net10.0/MultiTen.39AFDD57.Up2Date
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/obj/Debug/net10.0/MultiTenantOrderService.Application.dll
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/obj/Debug/net10.0/refint/MultiTenantOrderService.Application.dll
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/obj/Debug/net10.0/MultiTenantOrderService.Application.pdb
+/Users/suhajaafar/RiderProjects/MultiTenantOrderPlatform/MultiTenantOrderService.Application/obj/Debug/net10.0/ref/MultiTenantOrderService.Application.dll
