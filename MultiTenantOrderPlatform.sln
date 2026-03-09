@@ -8,6 +8,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenantOrderService.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenantOrderService.Infrastructure", "MultiTenantOrderService.Infrastructure\MultiTenantOrderService.Infrastructure.csproj", "{65B994BB-F7C2-41E4-8287-AF51D8DB2923}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatalogService", "CatalogService", "{F483C296-C9EE-442D-8ACB-06E4536910E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Api", "CatalogService.Api\CatalogService.Api.csproj", "{272A700F-3975-49E7-9108-7D99D034BBB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Infrastructure", "CatalogService.Infrastructure\CatalogService.Infrastructure.csproj", "{75B1C60A-AF01-4443-934A-7585785F54E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Application", "CatalogService.Application\CatalogService.Application.csproj", "{659697FD-52E3-4170-BF3E-2940FB454D37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Domain", "CatalogService.Domain\CatalogService.Domain.csproj", "{E12254E3-2F78-4FB9-8397-BB701779DF4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +40,27 @@ Global
 		{65B994BB-F7C2-41E4-8287-AF51D8DB2923}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65B994BB-F7C2-41E4-8287-AF51D8DB2923}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65B994BB-F7C2-41E4-8287-AF51D8DB2923}.Release|Any CPU.Build.0 = Release|Any CPU
+		{272A700F-3975-49E7-9108-7D99D034BBB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{272A700F-3975-49E7-9108-7D99D034BBB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{272A700F-3975-49E7-9108-7D99D034BBB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{272A700F-3975-49E7-9108-7D99D034BBB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75B1C60A-AF01-4443-934A-7585785F54E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75B1C60A-AF01-4443-934A-7585785F54E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75B1C60A-AF01-4443-934A-7585785F54E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75B1C60A-AF01-4443-934A-7585785F54E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{659697FD-52E3-4170-BF3E-2940FB454D37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{659697FD-52E3-4170-BF3E-2940FB454D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{659697FD-52E3-4170-BF3E-2940FB454D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{659697FD-52E3-4170-BF3E-2940FB454D37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E12254E3-2F78-4FB9-8397-BB701779DF4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E12254E3-2F78-4FB9-8397-BB701779DF4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E12254E3-2F78-4FB9-8397-BB701779DF4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E12254E3-2F78-4FB9-8397-BB701779DF4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{272A700F-3975-49E7-9108-7D99D034BBB0} = {F483C296-C9EE-442D-8ACB-06E4536910E6}
+		{75B1C60A-AF01-4443-934A-7585785F54E1} = {F483C296-C9EE-442D-8ACB-06E4536910E6}
+		{659697FD-52E3-4170-BF3E-2940FB454D37} = {F483C296-C9EE-442D-8ACB-06E4536910E6}
+		{E12254E3-2F78-4FB9-8397-BB701779DF4A} = {F483C296-C9EE-442D-8ACB-06E4536910E6}
 	EndGlobalSection
 EndGlobal
