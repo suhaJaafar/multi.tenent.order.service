@@ -2,19 +2,17 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
 using CatalogService.Api.Attributes;
 using CatalogService.Api.Extensions;
 using CatalogService.Api.Swagger;
 using CatalogService.Application;
 using CatalogService.Infrastructure;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers(options =>
     {
-        // Register the ActiveUser model binder
         options.ModelBinderProviders.Insert(0, new ActiveUserModelBinderProvider());
     })
     .ConfigureApiBehaviorOptions(_ =>
@@ -35,13 +33,10 @@ builder.Services.AddDbContext<CatalogService.Domain.DBContexts.CatalogContext>(o
 
 builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 
-// Register Application layer services (MediatR, etc.)
 builder.Services.AddApplication();
 
-// Register Infrastructure layer services (Repositories, UnitOfWork, etc.)
 builder.Services.AddInfrastructure(builder.Configuration);
 
-// Register HttpContextAccessor for accessing HTTP context in services
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSwaggerGen(options =>
@@ -53,7 +48,6 @@ builder.Services.AddSwaggerGen(options =>
         Description = "API for managing product catalog"
     });
 
-    // Add JWT Authentication to Swagger
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -79,14 +73,11 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    // Maintain controller/tag ordering via custom document filter
     options.DocumentFilter<SwaggerTagOrderDocumentFilter>();
 
-    // Hide ActiveUserData parameter from Swagger UI (it's populated from JWT automatically)
     options.OperationFilter<HideActiveUserParameterFilter>();
 });
 
-// JWT auth - SAME secret/issuer/audience as Identity service so tokens are interchangeable
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(jwtBearerOptions =>
 {
     jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
@@ -104,7 +95,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 var app = builder.Build();
 app.EnsureDbIsCreated();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -117,7 +107,6 @@ else
 
 app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
 
-// Add Authentication & Authorization middleware
 app.UseAuthentication();
 app.UseAuthorization();
 

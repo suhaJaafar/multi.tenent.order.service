@@ -1,20 +1,18 @@
-
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using IdentityService.Api.Attributes;
-using IdentityService.Api.Extensions;
-using IdentityService.Api.Swagger;
-using IdentityService.Application;
-using IdentityService.Domain.Identity.ObjectValues;
-using IdentityService.Infrastructure;
+using OrdersService.Api.Attributes;
+using OrdersService.Api.Extensions;
+using OrdersService.Api.Swagger;
+using OrdersService.Application;
+using OrdersService.Domain.DBContexts;
+using OrdersService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers(options =>
     {
         // Register the ActiveUser model binder
@@ -22,43 +20,39 @@ builder.Services.AddControllers(options =>
     })
     .ConfigureApiBehaviorOptions(_ =>
     {
-        // Enable case-insensitive property name binding
     })
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-        options.JsonSerializerOptions.Converters.Add(new EmailJsonConverter());
-        options.JsonSerializerOptions.Converters.Add(new PasswordJsonConverter());
-        options.JsonSerializerOptions.Converters.Add(new PhoneNumberJsonConverter());
     });
+
 builder.Services.AddEndpointsApiExplorer();
+
 // Register DbContext
-builder.Services.AddDbContext< IdentityService.Domain.DBContexts.OSContext>(options =>
+builder.Services.AddDbContext<OrdersContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 
-// Register Application layer service
+// Register Application layer services
 builder.Services.AddApplication();
 
-// Register Infrastructure layer services 
+// Register Infrastructure layer services
 builder.Services.AddInfrastructure(builder.Configuration);
 
 // Register HttpContextAccessor for accessing HTTP context in services
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddScoped< IdentityService.Infrastructure.Interfaces.IUserService,IdentityService.Application.UserServices.UserService>();
-builder.Services.AddScoped<IdentityService.Infrastructure.Interfaces.IProductService, IdentityService.Application.ProductServices.ProductService>();
-
+// Configure Swagger
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Identity Service API",
+        Title = "Orders Service API",
         Version = "v1",
-        Description = "API for managing users and authentication"
+        Description = "API for managing customer orders"
     });
 
     // Add JWT Authentication to Swagger
@@ -87,12 +81,11 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 
-    options.DocumentFilter<SwaggerTagOrderDocumentFilter>();
-    
+    // Hide ActiveUser parameter from Swagger
     options.OperationFilter<HideActiveUserParameterFilter>();
 });
 
-// JWT auth
+// JWT authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(jwtBearerOptions =>
 {
     jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
@@ -108,6 +101,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 var app = builder.Build();
+
+// Ensure database is created and migrations are applied
 app.EnsureDbIsCreated();
 
 // Configure the HTTP request pipeline.
@@ -129,3 +124,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
