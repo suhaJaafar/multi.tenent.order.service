@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenantOrderService.Api", "MultiTenantOrderService.Api\MultiTenantOrderService.Api.csproj", "{6D8AD561-C66F-44E7-9F49-05DB44AEEC66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Api", "IdentityService.Api\IdentityService.Api.csproj", "{6D8AD561-C66F-44E7-9F49-05DB44AEEC66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenantOrderService.Application", "MultiTenantOrderService.Application\MultiTenantOrderService.Application.csproj", "{E10BB208-800D-4F72-89E3-6CD11B68FD60}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Application", "IdentityService.Application\IdentityService.Application.csproj", "{E10BB208-800D-4F72-89E3-6CD11B68FD60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenantOrderService.Domain", "MultiTenantOrderService.Domain\MultiTenantOrderService.Domain.csproj", "{CF85CDAF-4F56-423F-88D9-B3EA64071E22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Domain", "IdentityService.Domain\IdentityService.Domain.csproj", "{CF85CDAF-4F56-423F-88D9-B3EA64071E22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiTenantOrderService.Infrastructure", "MultiTenantOrderService.Infrastructure\MultiTenantOrderService.Infrastructure.csproj", "{65B994BB-F7C2-41E4-8287-AF51D8DB2923}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Infrastructure", "IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{65B994BB-F7C2-41E4-8287-AF51D8DB2923}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatalogService", "CatalogService", "{F483C296-C9EE-442D-8ACB-06E4536910E6}"
 EndProject
@@ -17,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Application", "CatalogService.Application\CatalogService.Application.csproj", "{659697FD-52E3-4170-BF3E-2940FB454D37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Domain", "CatalogService.Domain\CatalogService.Domain.csproj", "{E12254E3-2F78-4FB9-8397-BB701779DF4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{49A76975-979A-46D3-A064-F876030BE6C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,5 +64,9 @@ Global
 		{75B1C60A-AF01-4443-934A-7585785F54E1} = {F483C296-C9EE-442D-8ACB-06E4536910E6}
 		{659697FD-52E3-4170-BF3E-2940FB454D37} = {F483C296-C9EE-442D-8ACB-06E4536910E6}
 		{E12254E3-2F78-4FB9-8397-BB701779DF4A} = {F483C296-C9EE-442D-8ACB-06E4536910E6}
+		{E10BB208-800D-4F72-89E3-6CD11B68FD60} = {49A76975-979A-46D3-A064-F876030BE6C1}
+		{6D8AD561-C66F-44E7-9F49-05DB44AEEC66} = {49A76975-979A-46D3-A064-F876030BE6C1}
+		{CF85CDAF-4F56-423F-88D9-B3EA64071E22} = {49A76975-979A-46D3-A064-F876030BE6C1}
+		{65B994BB-F7C2-41E4-8287-AF51D8DB2923} = {49A76975-979A-46D3-A064-F876030BE6C1}
 	EndGlobalSection
 EndGlobal

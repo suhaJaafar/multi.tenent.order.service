@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>MultiTenantOrderService.Infrastructure</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CatalogService.Domain\CatalogService.Domain.csproj" />
+      <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
+      <ProjectReference Include="..\MultiTenantOrderService.Domain\MultiTenantOrderService.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Amazon.S3" Version="0.35.1" />
+      <PackageReference Include="Audit.EntityFramework.Core" Version="32.0.0" />
+      <PackageReference Include="AutoMapper" Version="16.1.0" />
+      <PackageReference Include="AWSSDK.Core" Version="4.0.3.15" />
+      <PackageReference Include="AWSSDK.S3" Version="3.7.108.26" />
+      <PackageReference Include="Dapper" Version="2.1.72" />
+      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.9" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="11.0.0-preview.1.26104.118" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.5-beta1" />
+      <PackageReference Include="OpenSearch.Client" Version="1.8.0" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.16.0" />
+    </ItemGroup>
+
+</Project>
