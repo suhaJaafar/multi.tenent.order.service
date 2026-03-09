@@ -32,6 +32,10 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+# Backslash-style build output paths (from Windows)
+**/bin\\[Dd]ebug/
+**/obj\\[Dd]ebug/
+
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 
