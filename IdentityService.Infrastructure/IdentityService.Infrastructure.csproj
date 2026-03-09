@@ -4,13 +4,11 @@
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>MultiTenantOrderService.Infrastructure</RootNamespace>
+        <RootNamespace>IdentityService.Infrastructure</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CatalogService.Domain\CatalogService.Domain.csproj" />
       <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
-      <ProjectReference Include="..\MultiTenantOrderService.Domain\MultiTenantOrderService.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,3 +26,4 @@
     </ItemGroup>
 
 </Project>
+

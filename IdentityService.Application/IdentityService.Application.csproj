@@ -7,10 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CatalogService.Domain\CatalogService.Domain.csproj" />
-      <ProjectReference Include="..\CatalogService.Infrastructure\CatalogService.Infrastructure.csproj" />
       <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
-      <ProjectReference Include="..\MultiTenantOrderService.Domain\MultiTenantOrderService.Domain.csproj" />
       <ProjectReference Include="..\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj" />
     </ItemGroup>
 
@@ -27,3 +24,4 @@
     </ItemGroup>
 
 </Project>
+

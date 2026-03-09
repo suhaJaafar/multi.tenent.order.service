@@ -56,9 +56,9 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Installment Management API",
+        Title = "Identity Service API",
         Version = "v1",
-        Description = "API for managing installments"
+        Description = "API for managing users and authentication"
     });
 
     // Add JWT Authentication to Swagger
