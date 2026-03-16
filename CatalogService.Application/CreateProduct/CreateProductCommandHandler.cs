@@ -1,5 +1,6 @@
 using AutoMapper;
 using CatalogService.Application.Abstractions.Messaging;
+using CatalogService.Application.Exceptions;
 using CatalogService.Application.GetProduct;
 using CatalogService.Domain.Abstractions;
 using CatalogService.Domain.Product;
@@ -27,22 +28,30 @@ internal sealed class CreateProductCommandHandler : ICommandHandler<CreateProduc
         CreateProductCommand request,
         CancellationToken cancellationToken)
     {
-        var product = Product.Create(
-            request.Id,
-            request.Name,
-            request.Description,
-            request.Price,
-            request.Stock,
-            request.OwnerUserId,
-            request.Category);
+        try
+        {
+            var product = Product.Create(
+                request.Id,
+                request.Name,
+                request.Description,
+                request.Price,
+                request.Stock,
+                request.OwnerUserId,
+                request.Category);
 
-        _productRepository.Add(product);
+            _productRepository.Add(product);
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        var response = _mapper.Map<ProductResponse>(product);
+            var response = _mapper.Map<ProductResponse>(product);
 
-        return Result.Success(response);
+            return Result.Success(response); 
+        }
+        catch(ConcurrencyException)
+        {
+            return Result.Failure<ProductResponse>(ProductErrors.ConcurrencyConflict);
+        }
+        
     }
 }
 

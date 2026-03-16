@@ -1,6 +1,5 @@
 using CatalogService.Application.Abstractions.Messaging;
 using CatalogService.Domain.Abstractions;
-using CatalogService.Domain.DBContexts;
 using CatalogService.Domain.Product;
 
 namespace CatalogService.Application.DeleteProduct;
@@ -9,16 +8,13 @@ internal sealed class DeleteProductCommandHandler : ICommandHandler<DeleteProduc
 {
     private readonly IProductRepository _productRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly CatalogContext _context;
 
     public DeleteProductCommandHandler(
         IProductRepository productRepository,
-        IUnitOfWork unitOfWork,
-        CatalogContext context)
+        IUnitOfWork unitOfWork)
     {
         _productRepository = productRepository;
         _unitOfWork = unitOfWork;
-        _context = context;
     }
 
     public async Task<Result> Handle(
@@ -37,11 +33,11 @@ internal sealed class DeleteProductCommandHandler : ICommandHandler<DeleteProduc
             return Result.Failure(ProductErrors.Unauthorized);
         }
 
-        _context.Products.Remove(product);
+        // Use repository to delete instead of direct DbContext access
+        _productRepository.Delete(product);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
     }
 }
-

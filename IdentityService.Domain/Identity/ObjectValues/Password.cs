@@ -16,11 +16,6 @@ public record Password
         {
             throw new ArgumentNullException("value", "Password is not valid.");
         }
-
-        if (value.Length < 8)
-        {
-            throw new ArgumentException("Password must be at least 8 characters long.");
-        }
     }
 
     public static implicit operator Password(string value)

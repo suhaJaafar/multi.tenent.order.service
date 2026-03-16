@@ -1,20 +1,19 @@
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using CatalogService.Application.Abstractions.Messaging;
 using CatalogService.Domain.Abstractions;
-using CatalogService.Domain.DBContexts;
+using CatalogService.Domain.Product;
 using CatalogService.Domain.Product.DTOs;
 
 namespace CatalogService.Application.GetProducts;
 
 internal sealed class GetProductsQueryHandler : IQueryHandler<GetProductsQuery, ProductsListResponse>
 {
-    private readonly CatalogContext _context;
+    private readonly IProductQueryService _productQueryService;
     private readonly IMapper _mapper;
 
-    public GetProductsQueryHandler(CatalogContext context, IMapper mapper)
+    public GetProductsQueryHandler(IProductQueryService productQueryService, IMapper mapper)
     {
-        _context = context;
+        _productQueryService = productQueryService;
         _mapper = mapper;
     }
 
@@ -22,39 +21,10 @@ internal sealed class GetProductsQueryHandler : IQueryHandler<GetProductsQuery, 
         GetProductsQuery request,
         CancellationToken cancellationToken)
     {
-        var specParams = request.Parameters;
-        var query = _context.Products.OrderByDescending(v => v.CreateAt).AsQueryable();
-
-        // Apply search filter
-        if (!string.IsNullOrEmpty(specParams.SearchTerm))
-        {
-            var searchTerm = specParams.SearchTerm.ToLower().Replace(" ", "");
-            query = query.Where(x =>
-                x.Name.ToLower().Replace(" ", "").Contains(searchTerm) ||
-                x.Description.ToLower().Replace(" ", "").Contains(searchTerm));
-        }
-
-        // Apply filters
-        if (specParams.Id.HasValue)
-            query = query.Where(x => x.Id == specParams.Id);
-
-        if (specParams.Category.HasValue)
-            query = query.Where(x => x.Category == specParams.Category);
-
-        if (specParams.OwnerUserId.HasValue)
-            query = query.Where(x => x.OwnerUserId == specParams.OwnerUserId);
-
-        if (specParams.IsActive.HasValue)
-            query = query.Where(x => x.IsActive == specParams.IsActive);
-
-        // Get total count
-        var count = await query.CountAsync(cancellationToken);
-
-        // Apply pagination
-        var products = await query
-            .Skip(specParams.Skip)
-            .Take(specParams.Take)
-            .ToListAsync(cancellationToken);
+        // Use the query service to get products with all filters applied
+        var (products, totalCount) = await _productQueryService.GetProductsAsync(
+            request.Parameters, 
+            cancellationToken);
 
         // Map to DTOs
         var productDtos = _mapper.Map<List<ProductToReturnDto>>(products);
@@ -62,10 +32,9 @@ internal sealed class GetProductsQueryHandler : IQueryHandler<GetProductsQuery, 
         var response = new ProductsListResponse
         {
             Products = productDtos,
-            TotalCount = count
+            TotalCount = totalCount
         };
 
         return Result.Success(response);
     }
 }
-

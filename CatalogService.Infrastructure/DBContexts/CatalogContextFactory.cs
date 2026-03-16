@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace CatalogService.Domain.DBContexts;
+namespace CatalogService.Infrastructure.DBContexts;
 
 public class CatalogContextFactory : IDesignTimeDbContextFactory<CatalogContext>
 {
@@ -27,7 +27,8 @@ public class CatalogContextFactory : IDesignTimeDbContextFactory<CatalogContext>
         var optionsBuilder = new DbContextOptionsBuilder<CatalogContext>();
         optionsBuilder.UseNpgsql(connectionString);
 
-        return new CatalogContext(optionsBuilder.Options, config);
+        // Design-time context creation - IPublisher is not needed for migrations
+        return new CatalogContext(optionsBuilder.Options, null!);
     }
 
     private static string? FindAppSettingsDirectory()
@@ -43,4 +44,5 @@ public class CatalogContextFactory : IDesignTimeDbContextFactory<CatalogContext>
         return null;
     }
 }
+
 

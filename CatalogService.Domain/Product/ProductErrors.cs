@@ -19,4 +19,8 @@ public static class ProductErrors
     public static Error InvalidStock = new(
         "Product.InvalidStock",
         "The product stock cannot be negative");
+
+    public static Error ConcurrencyConflict = new(
+        "Product.ConcurrencyConflict",
+        "The product was modified by another user. Please refresh and try again");
 }

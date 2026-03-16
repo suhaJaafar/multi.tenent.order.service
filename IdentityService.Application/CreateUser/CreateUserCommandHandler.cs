@@ -5,6 +5,7 @@ using IdentityService.Domain.Abstractions;
 using IdentityService.Domain.Identity;
 using IdentityService.Domain.Identity.Entities;
 using IdentityService.Domain.Identity.ObjectValues;
+using Scrypt;
 
 namespace IdentityService.Application.CreateUser;
 
@@ -37,11 +38,15 @@ internal sealed class CreateUserCommandHandler : ICommandHandler<CreateUserComma
             return Result.Failure<UserResponse>(UserErrors.EmailNotUnique);
         }
 
+        // Hash the password using Scrypt
+        var scryptEncoder = new ScryptEncoder();
+        var hashedPassword = scryptEncoder.Encode(request.Password);
+
         var user = User.Create(
             request.Id,
             request.Name,
             new Email(request.Email),
-            new Password(request.Password),
+            new Password(hashedPassword),
             request.UserType,
             request.TenentName);
 

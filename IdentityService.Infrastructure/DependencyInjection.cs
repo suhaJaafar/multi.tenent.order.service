@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using IdentityService.Domain.Abstractions;
 using IdentityService.Domain.DBContexts;
 using IdentityService.Domain.Identity;
 using IdentityService.Infrastructure.Repositories;
+using Microsoft.Extensions.Configuration;
 
 namespace IdentityService.Infrastructure;
 

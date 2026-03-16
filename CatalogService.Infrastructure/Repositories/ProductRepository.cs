@@ -20,5 +20,9 @@ internal sealed class ProductRepository : Repository<Product>, IProductRepositor
             .Where(p => p.OwnerUserId == ownerUserId)
             .ToListAsync(cancellationToken);
     }
-}
 
+    public void Delete(Product product)
+    {
+        DbContext.Set<Product>().Remove(product);
+    }
+}

@@ -1,4 +1,4 @@
-using CatalogService.Domain.DBContexts;
+using CatalogService.Infrastructure.DBContexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace CatalogService.Api.Extensions;
