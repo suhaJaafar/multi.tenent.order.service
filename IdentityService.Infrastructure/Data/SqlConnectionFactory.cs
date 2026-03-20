@@ -1,9 +1,8 @@
-﻿using System.Data;
-using CatalogService.Application.Abstractions.Data;
-using CatalogService.Application.DeleteProduct;
+using System.Data;
+using IdentityService.Application.Abstractions.Data;
 using Npgsql;
 
-namespace CatalogService.Infrastructure.Data;
+namespace IdentityService.Infrastructure.Data;
 internal sealed class SqlConnectionFactory : ISqlConnectionFactory
 {
     private readonly string _connectionString;

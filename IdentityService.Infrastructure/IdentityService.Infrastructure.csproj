@@ -8,13 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\IdentityService.Application\IdentityService.Application.csproj" />
       <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Amazon.S3" Version="0.35.1" />
       <PackageReference Include="Audit.EntityFramework.Core" Version="32.0.0" />
-      <PackageReference Include="AutoMapper" Version="16.1.0" />
+      <PackageReference Include="AutoMapper" Version="16.1.1" />
       <PackageReference Include="AWSSDK.Core" Version="4.0.3.15" />
       <PackageReference Include="AWSSDK.S3" Version="3.7.108.26" />
       <PackageReference Include="Dapper" Version="2.1.72" />

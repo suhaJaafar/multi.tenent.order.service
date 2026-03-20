@@ -1,13 +1,12 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using IdentityService.Application.Abstractions;
 using IdentityService.Domain.DBContexts;
 using IdentityService.Domain.DTOs;
 using IdentityService.Domain.Entities;
 using IdentityService.Domain.Identity.Entities;
 using IdentityService.Domain.FiltersParams;
 using IdentityService.Domain.Forms;
-using IdentityService.Infrastructure.Interfaces;
-using IdentityService.Infrastructure.Utilities;
 
 namespace IdentityService.Application.ProductServices;
 

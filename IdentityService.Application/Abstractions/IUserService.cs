@@ -1,12 +1,10 @@
-﻿using IdentityService.Application.Abstractions;
 using IdentityService.Domain.Identity.DTOs;
 using IdentityService.Domain.Identity.Entities;
 using IdentityService.Domain.Identity.FiltersParams;
 using IdentityService.Domain.Identity.Forms;
 
-namespace IdentityService.Infrastructure.Interfaces;
+namespace IdentityService.Application.Abstractions;
 
-[Obsolete("This interface has been moved to IdentityService.Application.Abstractions. Please use that version instead.")]
 public interface IUserService : IDisposable
 {
     Task<ServiceResponse<List<UsersToReturnDto>>> GetUsers(UsersParams userParams);

@@ -89,15 +89,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 var app = builder.Build();
 app.EnsureDbIsCreated();
 
-if (app.Environment.IsDevelopment())
-{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-else
-{
-    app.UseHttpsRedirection();
-}
 
 app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
 

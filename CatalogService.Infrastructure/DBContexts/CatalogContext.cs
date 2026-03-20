@@ -12,6 +12,7 @@ public class CatalogContext : DbContext, IUnitOfWork
     private readonly IPublisher _publisher;
     public CatalogContext(DbContextOptions<CatalogContext> options,  IPublisher publisher) : base(options)
     {
+        _publisher = publisher;
     }
 
     public DbSet<Product> Products { get; set; }

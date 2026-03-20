@@ -403,6 +403,7 @@ FodyWeavers.xsd
 *.sln.iml
 .idea/
 *.DotSettings.user
+full-project.xml
 
 # Mac OS
 .DS_Store
@@ -419,4 +420,9 @@ appsettings.Local.json
 *.db
 *.db-shm
 *.db-wal
+
+# Docker volumes and container data
+.containers/
+**/docker-data/
+**/postgres-data/
 

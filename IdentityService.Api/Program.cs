@@ -49,8 +49,6 @@ builder.Services.AddInfrastructure(builder.Configuration);
 // Register HttpContextAccessor for accessing HTTP context in services
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddScoped< IdentityService.Infrastructure.Interfaces.IUserService,IdentityService.Application.UserServices.UserService>();
-builder.Services.AddScoped<IdentityService.Infrastructure.Interfaces.IProductService, IdentityService.Application.ProductServices.ProductService>();
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -111,15 +109,8 @@ var app = builder.Build();
 app.EnsureDbIsCreated();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-else
-{
-    app.UseHttpsRedirection();
-}
 
 app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
 

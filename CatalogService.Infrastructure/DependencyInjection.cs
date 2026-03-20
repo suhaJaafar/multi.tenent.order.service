@@ -1,4 +1,5 @@
-﻿﻿using CatalogService.Application.DeleteProduct;
+﻿using CatalogService.Application.Abstractions.Data;
+ using CatalogService.Application.DeleteProduct;
  using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
