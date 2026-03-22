@@ -1,6 +1,6 @@
-﻿using System.Data;
-namespace CatalogService.Application.Abstractions.Data;
+using System.Data;
 
+namespace OrdersService.Application.Abstractions.Data;
 public interface ISqlConnectionFactory
 {
     IDbConnection CreateConnection();

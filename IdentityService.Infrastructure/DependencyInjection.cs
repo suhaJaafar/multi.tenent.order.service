@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IdentityService.Application.Abstractions.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using IdentityService.Domain.Abstractions;
 using IdentityService.Domain.DBContexts;
 using IdentityService.Domain.Identity;
+using IdentityService.Infrastructure.Data;
 using IdentityService.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 
@@ -14,6 +16,17 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        
+        var connectionString =
+            configuration.GetConnectionString("DefaultConnection") ??
+            throw new ArgumentNullException(nameof(configuration), "Connection string 'DefaultConnection' not found.");
+
+        // Register OSContext
+        services.AddDbContext<OSContext>((serviceProvider, options) =>
+        {
+            options.UseNpgsql(connectionString);
+        });
+        
         // Register DbContext as the implementation for DbContext dependency in repositories
         services.AddScoped<DbContext>(provider => 
             provider.GetRequiredService<OSContext>());
@@ -21,6 +34,9 @@ public static class DependencyInjection
         // Register repositories and UnitOfWork
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserRepository, UserRepository>();
+        
+        services.AddSingleton<ISqlConnectionFactory>(_ =>
+            new SqlConnectionFactory(connectionString));
 
         return services;
     }

@@ -1,40 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-namespace IdentityService.Infrastructure.Utilities
+﻿using IdentityService.Application.Abstractions;
+
+namespace IdentityService.Infrastructure.Utilities;
+
+[Obsolete("This class has been moved to IdentityService.Application.Abstractions. Please use that version instead.")]
+public class ServiceResponse<T> : Application.Abstractions.ServiceResponse<T>
 {
-    public class ServiceResponse<T>
-    {
-        public ServiceResponse(T value)
-        {
-            Error = false;
-            Value = value;
-            Count = 1;
-        }
-
-        public ServiceResponse(T value, int count)
-        {
-            Value = value;
-            Count = count;
-        }
-
-        public ServiceResponse(T value, string msg)
-        {
-            Value = value;
-            ResponseMessage = msg;
-        }
-
-        public ServiceResponse(bool error, string msg)
-        {
-            Error = error;
-            ResponseMessage = msg;
-        }
-
-        public T Value { get; set; }
-        public bool Error { get; set; }
-        public string ResponseMessage { get; set; }
-        public int Count { get; set; }
-    }
+    public ServiceResponse(T value) : base(value) { }
+    public ServiceResponse(T value, int count) : base(value, count) { }
+    public ServiceResponse(T value, string msg) : base(value, msg) { }
+    public ServiceResponse(bool error, string msg) : base(error, msg) { }
 }
+

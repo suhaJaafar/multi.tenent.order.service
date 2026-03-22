@@ -1,8 +1,5 @@
-using IdentityService.Application.Abstractions;
+namespace IdentityService.Application.Abstractions;
 
-namespace IdentityService.Infrastructure.Interfaces;
-
-[Obsolete("This interface has been moved to IdentityService.Application.Abstractions. Please use that version instead.")]
 public interface IGenericHttpClient
 {
     Task<ServiceResponse<TResult>> PostRequest<TRequestBody, TResult>(string endPoint, TRequestBody body, CancellationToken cancellationToken,

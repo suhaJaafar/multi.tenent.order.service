@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using MediatR;
-using IdentityService.Infrastructure.Utilities;
+using IdentityService.Api.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;

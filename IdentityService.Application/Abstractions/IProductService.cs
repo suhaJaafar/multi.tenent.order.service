@@ -1,12 +1,10 @@
-using IdentityService.Application.Abstractions;
 using IdentityService.Domain.DTOs;
 using IdentityService.Domain.Entities;
 using IdentityService.Domain.FiltersParams;
 using IdentityService.Domain.Forms;
 
-namespace IdentityService.Infrastructure.Interfaces;
+namespace IdentityService.Application.Abstractions;
 
-[Obsolete("This interface has been moved to IdentityService.Application.Abstractions. Please use that version instead.")]
 public interface IProductService
 {
     Task<ServiceResponse<List<ProductsToReturn>>> GetAllProducts(ProductsParams productParams);

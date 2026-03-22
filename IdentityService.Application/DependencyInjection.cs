@@ -1,5 +1,8 @@
 ﻿using FluentValidation;
+using IdentityService.Application.Abstractions;
 using IdentityService.Application.Abstractions.Behaviors;
+using IdentityService.Application.UserServices;
+using IdentityService.Application.ProductServices;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace IdentityService.Application;
@@ -18,6 +21,10 @@ public static class DependencyInjection
         });
 
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
+
+        // Register application services
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IProductService, ProductService>();
 
         return services;
     }

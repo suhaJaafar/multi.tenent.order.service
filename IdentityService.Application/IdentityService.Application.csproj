@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
-      <ProjectReference Include="..\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -18,10 +17,6 @@
       <PackageReference Include="MediatR" Version="14.1.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="11.0.0-preview.2.26159.112" />
       <PackageReference Include="Scrypt.NET" Version="1.3.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Abstractions\" />
     </ItemGroup>
 
 </Project>
