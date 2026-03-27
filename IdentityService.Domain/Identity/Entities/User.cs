@@ -1,5 +1,4 @@
 ﻿using IdentityService.Domain.Abstractions;
-using IdentityService.Domain.Entities;
 using IdentityService.Domain.Enums;
 using IdentityService.Domain.Identity.Enums;
 using IdentityService.Domain.Identity.Events;
@@ -34,8 +33,6 @@ public class User : Entity
     
     public TenentName TenentName { get; set; }
     
-    public List<Product> FavoriteProducts { get; } = [];
-
     public static User Create(Guid id, string name, Email email, Password password, UserType userType,
         TenentName tenentName)
     {

@@ -32,11 +32,6 @@ builder.Services.AddControllers(options =>
         options.JsonSerializerOptions.Converters.Add(new PhoneNumberJsonConverter());
     });
 builder.Services.AddEndpointsApiExplorer();
-// Register DbContext
-builder.Services.AddDbContext< IdentityService.Domain.DBContexts.OSContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
 
 builder.Services.AddAutoMapper(cfg => { }, AppDomain.CurrentDomain.GetAssemblies());
 

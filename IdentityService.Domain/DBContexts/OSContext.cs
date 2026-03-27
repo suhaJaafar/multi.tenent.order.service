@@ -1,13 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using IdentityService.Domain.Entities;
-using IdentityService.Domain.Identity.Entities;
 
 namespace IdentityService.Domain.DBContexts
 {
@@ -25,8 +18,6 @@ namespace IdentityService.Domain.DBContexts
             _configuration = configuration;
         }
         public DbSet<Identity.Entities.User> Users { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Order> Orders { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -79,30 +70,6 @@ namespace IdentityService.Domain.DBContexts
                     phoneNumber.WithOwner();
                 });
 
-            // // Configure OrderStatus default value to Pending for new rows and when adding the column
-            // modelBuilder.Entity<Order>()
-            //     .Property(o => o.OrderStatus)
-            //     .HasDefaultValue(Enums.OrderStatus.Pending);
-
-            // Many-to-many: Order <-> Product via join table OrderProducts
-            modelBuilder.Entity<Order>()
-                .HasMany(o => o.Products)
-                .WithMany(p => p.Orders)
-                .UsingEntity<Dictionary<string, object>>(
-                    "OrderProducts",
-                    j => j.HasOne<Product>().WithMany().HasForeignKey("ProductId").OnDelete(DeleteBehavior.Cascade),
-                    j => j.HasOne<Order>().WithMany().HasForeignKey("OrderId").OnDelete(DeleteBehavior.Cascade)
-                );
-
-            // Many-to-many: User <-> Product (favorites) via join table UserFavoriteProducts
-            modelBuilder.Entity<Identity.Entities.User>()
-                .HasMany(u => u.FavoriteProducts)
-                .WithMany(p => p.FavoritedByUsers)
-                .UsingEntity<Dictionary<string, object>>(
-                    "UserFavoriteProducts",
-                    j => j.HasOne<Product>().WithMany().HasForeignKey("ProductId").OnDelete(DeleteBehavior.Cascade),
-                    j => j.HasOne<Identity.Entities.User>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.Cascade)
-                );
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

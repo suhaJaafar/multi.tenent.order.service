@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using OrdersService.Domain.Order.Entities;
+using OrdersService.Domain.Product.Entities;
 
 namespace OrdersService.Domain.DBContexts;
 
@@ -19,6 +20,8 @@ public class OrdersContext : DbContext
     }
 
     public DbSet<Order.Entities.Order> Orders { get; set; }
+    public DbSet<OrderItem> OrderItems { get; set; }
+    public DbSet<ProductReference> ProductReferences { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -45,11 +48,81 @@ public class OrdersContext : DbContext
             entity.Property(o => o.CreateAt)
                 .IsRequired();
 
+            // Configure relationship with OrderItems
+            entity.HasMany(o => o.OrderItems)
+                .WithOne(oi => oi.Order)
+                .HasForeignKey(oi => oi.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Add index on UserId for faster queries
             entity.HasIndex(o => o.UserId);
             
             // Add index on Status for filtering
             entity.HasIndex(o => o.Status);
+        });
+
+        // Configure OrderItem entity
+        modelBuilder.Entity<OrderItem>(entity =>
+        {
+            entity.HasKey(oi => oi.Id);
+
+            entity.Property(oi => oi.ProductId)
+                .IsRequired();
+
+            entity.Property(oi => oi.SKU)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(oi => oi.ProductName)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(oi => oi.UnitPrice)
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
+
+            entity.Property(oi => oi.Quantity)
+                .IsRequired();
+
+            entity.Property(oi => oi.Subtotal)
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
+
+            // Indexes for performance
+            entity.HasIndex(oi => oi.OrderId);
+            entity.HasIndex(oi => oi.ProductId);
+        });
+
+        // Configure ProductReference entity (local cache)
+        modelBuilder.Entity<ProductReference>(entity =>
+        {
+            entity.HasKey(p => p.Id);
+
+            entity.Property(p => p.SKU)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(p => p.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(p => p.CurrentPrice)
+                .HasColumnType("decimal(18,2)")
+                .IsRequired();
+
+            entity.Property(p => p.Category)
+                .HasMaxLength(50);
+
+            entity.Property(p => p.IsActive)
+                .IsRequired();
+
+            entity.Property(p => p.LastSyncedAt)
+                .IsRequired();
+
+            // Indexes for performance
+            entity.HasIndex(p => p.SKU);
+            entity.HasIndex(p => p.IsActive);
+            entity.HasIndex(p => p.OwnerUserId);
         });
     }
 

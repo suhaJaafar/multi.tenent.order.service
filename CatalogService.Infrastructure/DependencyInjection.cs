@@ -22,10 +22,17 @@ public static class DependencyInjection
             configuration.GetConnectionString("DefaultConnection") ??
             throw new ArgumentNullException(nameof(configuration), "Connection string 'DefaultConnection' not found.");
 
-        // Register CatalogContext
-        services.AddDbContext<CatalogContext>((serviceProvider, options) =>
+        // Register CatalogContext with connection resilience
+        services.AddDbContext<CatalogContext>(options =>
         {
-            options.UseNpgsql(connectionString);
+            options.UseNpgsql(connectionString, npgsqlOptions =>
+            {
+                // Enable connection resilience with retry on transient failures
+                npgsqlOptions.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: TimeSpan.FromSeconds(30),
+                    errorCodesToAdd: null);
+            });
         });
         
         // Register DbContext as the implementation for DbContext dependency in repositories

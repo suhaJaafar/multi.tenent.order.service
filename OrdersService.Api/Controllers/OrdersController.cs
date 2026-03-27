@@ -2,10 +2,11 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrdersService.Api.Attributes;
-using OrdersService.Api.DTOs;
 using OrdersService.Application.CreateOrder;
 using OrdersService.Application.GetOrder;
 using OrdersService.Application.GetUserOrders;
+using OrdersService.Domain.Order.DTOs;
+using OrdersService.Infrastructure.Utilities;
 
 namespace OrdersService.Api.Controllers;
 
@@ -27,31 +28,28 @@ public class OrdersController : ControllerBase
     [Authorize]
     public async Task<IActionResult> CreateOrder(
         [FromBody] CreateOrderRequest request,
-        [ModelBinder(typeof(ActiveUserModelBinder))] ActiveUserData activeUser,
+        [ActiveUser] ActiveUserData activeUser,
         CancellationToken cancellationToken)
     {
-        if (activeUser?.UserId == Guid.Empty)
-        {
-            return Unauthorized(new { error = "User not authenticated" });
-        }
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        if (activeUser.Sub == Guid.Empty)
+            return Unauthorized(new ClientResponse<string>(true, "User not authenticated"));
 
         var command = new CreateOrderCommand(
             Guid.NewGuid(),
-            activeUser.UserId, // Use authenticated user's ID
-            request.TotalAmount,
+            activeUser.Sub,
+            request.Items,
             request.Notes);
 
         var result = await _sender.Send(command, cancellationToken);
 
         if (result.IsFailure)
         {
-            return BadRequest(new { error = result.Error.Name, message = result.Error.Code });
+            return BadRequest(new ClientResponse<string>(true, result.Error.Name));
         }
 
-        return CreatedAtAction(
-            nameof(GetOrder),
-            new { orderId = result.Value.Id },
-            result.Value);
+        return Ok(new ClientResponse<OrderResponse>(result.Value));
     }
 
     /// <summary>
@@ -84,12 +82,12 @@ public class OrdersController : ControllerBase
         [ModelBinder(typeof(ActiveUserModelBinder))] ActiveUserData activeUser,
         CancellationToken cancellationToken)
     {
-        if (activeUser?.UserId == Guid.Empty)
+        if (activeUser?.Sub == Guid.Empty)
         {
             return Unauthorized(new { error = "User not authenticated" });
         }
 
-        var query = new GetUserOrdersQuery(activeUser.UserId);
+        var query = new GetUserOrdersQuery(activeUser.Sub);
 
         var result = await _sender.Send(query, cancellationToken);
 
@@ -122,8 +120,3 @@ public class OrdersController : ControllerBase
         return Ok(result.Value);
     }
 }
-
-public record CreateOrderRequest(
-    decimal TotalAmount,
-    string? Notes);
-

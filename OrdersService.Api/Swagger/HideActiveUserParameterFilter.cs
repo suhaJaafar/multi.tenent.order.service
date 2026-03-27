@@ -1,5 +1,5 @@
 using Microsoft.OpenApi.Models;
-using OrdersService.Api.DTOs;
+using OrdersService.Domain.Order.DTOs;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace OrdersService.Api.Swagger;

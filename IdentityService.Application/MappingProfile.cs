@@ -1,7 +1,6 @@
 using AutoMapper;
 using IdentityService.Application.GetUser;
 using IdentityService.Domain.DTOs;
-using IdentityService.Domain.Entities;
 using IdentityService.Domain.Identity.Entities;
 using IdentityService.Domain.Forms;
 using IdentityService.Domain.Enums;
@@ -32,12 +31,6 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password))
             .ForMember(dest => dest.TenentName, opt => opt.MapFrom(src => src.TenentName));
 
-        // Map Product entity to ProductsToReturn DTO
-        CreateMap<Product, ProductsToReturn>()
-            .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreateAt));
-
-        // Map CreateProductForm to Product entity
-        CreateMap<CreateProductForm, Product>();
     }
 }
 

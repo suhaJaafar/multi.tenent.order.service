@@ -23,5 +23,20 @@ public static class OrderErrors
     public static Error CannotCancel = new(
         "Order.CannotCancel",
         "The order cannot be cancelled in its current status");
-}
 
+    public static Error NoItemsProvided = new(
+        "Order.NoItemsProvided",
+        "Order must contain at least one item");
+
+    public static Error ProductNotFound(Guid productId) => new(
+        "Order.ProductNotFound",
+        $"Product with ID {productId} not found in local reference");
+
+    public static Error ProductNotAvailable(Guid productId) => new(
+        "Order.ProductNotAvailable",
+        $"Product with ID {productId} is not available for ordering");
+
+    public static Error InvalidQuantity(Guid productId) => new(
+        "Order.InvalidQuantity",
+        $"Invalid quantity for product {productId}");
+}

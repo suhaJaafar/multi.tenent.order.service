@@ -5,6 +5,7 @@ using OrdersService.Application.Abstractions.Data;
 using OrdersService.Domain.Abstractions;
 using OrdersService.Domain.DBContexts;
 using OrdersService.Domain.Order;
+using OrdersService.Domain.Product;
 using OrdersService.Infrastructure.Data;
 using OrdersService.Infrastructure.Repositories;
 
@@ -21,10 +22,18 @@ public static class DependencyInjection
             configuration.GetConnectionString("DefaultConnection") ??
             throw new ArgumentNullException(nameof(configuration), "Connection string 'DefaultConnection' not found.");
 
-        // Register OrdersContext
-        services.AddDbContext<OrdersContext>((serviceProvider, options) =>
+        // Register OrdersContext with connection resilience
+        services.AddDbContext<OrdersContext>(options =>
         {
-            options.UseNpgsql(connectionString);
+            options.UseNpgsql(connectionString, npgsqlOptions =>
+            {
+                npgsqlOptions.MigrationsAssembly("OrdersService.Domain");
+                // Enable connection resilience with retry on transient failures
+                npgsqlOptions.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: TimeSpan.FromSeconds(30),
+                    errorCodesToAdd: null);
+            });
         });
         
         // Register DbContext as the implementation for DbContext dependency in repositories
@@ -34,6 +43,7 @@ public static class DependencyInjection
         // Register repositories and UnitOfWork
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IProductReferenceRepository, ProductReferenceRepository>();
         
         services.AddSingleton<ISqlConnectionFactory>(_ =>
             new SqlConnectionFactory(connectionString));

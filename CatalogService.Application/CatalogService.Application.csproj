@@ -8,12 +8,14 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CatalogService.Domain\CatalogService.Domain.csproj" />
+      <ProjectReference Include="..\Shared.Contracts\Shared.Contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="16.1.0" />
       <PackageReference Include="FluentValidation" Version="12.1.1" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+      <PackageReference Include="MassTransit.Abstractions" Version="8.2.5" />
       <PackageReference Include="MediatR" Version="14.1.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="11.0.0-preview.2.26159.112" />
     </ItemGroup>
