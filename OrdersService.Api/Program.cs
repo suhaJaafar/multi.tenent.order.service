@@ -1,4 +1,5 @@
 using System.Text;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +8,7 @@ using OrdersService.Api.Attributes;
 using OrdersService.Api.Extensions;
 using OrdersService.Api.Swagger;
 using OrdersService.Application;
+using OrdersService.Application.Products.Consumers;
 using OrdersService.Domain.DBContexts;
 using OrdersService.Infrastructure;
 
@@ -44,6 +46,28 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 // Register HttpContextAccessor for accessing HTTP context in services
 builder.Services.AddHttpContextAccessor();
+
+// Configure MassTransit with RabbitMQ
+builder.Services.AddMassTransit(x =>
+{
+    // Register all consumers
+    x.AddConsumer<ProductCreatedIntegrationEventConsumer>();
+    x.AddConsumer<ProductUpdatedIntegrationEventConsumer>();
+    x.AddConsumer<ProductPriceChangedIntegrationEventConsumer>();
+    x.AddConsumer<ProductArchivedIntegrationEventConsumer>();
+
+    // Configure RabbitMQ
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMQ:Host"], builder.Configuration["RabbitMQ:VirtualHost"], h =>
+        {
+            h.Username(builder.Configuration["RabbitMQ:Username"]!);
+            h.Password(builder.Configuration["RabbitMQ:Password"]!);
+        });
+
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 // Configure Swagger
 builder.Services.AddSwaggerGen(options =>
@@ -99,6 +123,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]!))
     };
 });
+
+// connect to a catalog service using HttpClient
+builder.Services
+    .AddHttpClient("CatalogService",
+        client =>
+        {
+            client.BaseAddress = new Uri(builder.Configuration["Services:CatalogService:Url"]);
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+        })
+    .SetHandlerLifetime(TimeSpan.FromMinutes(5));
 
 var app = builder.Build();
 

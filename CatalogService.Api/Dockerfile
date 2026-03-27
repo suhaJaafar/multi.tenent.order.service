@@ -11,6 +11,7 @@ COPY ["CatalogService.Api/CatalogService.Api.csproj", "CatalogService.Api/"]
 COPY ["CatalogService.Application/CatalogService.Application.csproj", "CatalogService.Application/"]
 COPY ["CatalogService.Domain/CatalogService.Domain.csproj", "CatalogService.Domain/"]
 COPY ["CatalogService.Infrastructure/CatalogService.Infrastructure.csproj", "CatalogService.Infrastructure/"]
+COPY ["Shared.Contracts/Shared.Contracts.csproj", "Shared.Contracts/"]
 RUN dotnet restore "CatalogService.Api/CatalogService.Api.csproj"
 COPY . .
 WORKDIR "/src/CatalogService.Api"

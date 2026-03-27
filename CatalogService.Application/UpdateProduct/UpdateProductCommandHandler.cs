@@ -39,14 +39,15 @@ internal sealed class UpdateProductCommandHandler : ICommandHandler<UpdateProduc
             return Result.Failure<ProductResponse>(ProductErrors.Unauthorized);
         }
 
-        // Update product properties
-        product.Name = request.Name;
-        product.Description = request.Description;
-        product.Price = request.Price;
-        product.Stock = request.Stock;
-        product.Category = request.Category;
+        // Update product using domain method (will raise domain events)
+        product.Update(
+            request.Name,
+            request.Description,
+            request.Price,
+            request.Stock,
+            request.Category);
+        
         product.IsActive = request.IsActive;
-        product.UpdateAt = DateTime.UtcNow;
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
@@ -56,4 +57,3 @@ internal sealed class UpdateProductCommandHandler : ICommandHandler<UpdateProduc
         return Result.Success(response);
     }
 }
-

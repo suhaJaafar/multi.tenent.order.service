@@ -52,10 +52,7 @@ public class ProductsController : ControllerBase
             return BadRequest(new ClientResponse<string>(true, result.Error.Name));
         }
 
-        return CreatedAtAction(
-            nameof(GetProduct),
-            new { id = result.Value.Id },
-            new ClientResponse<ProductResponse>(result.Value));
+        return Ok(new ClientResponse<ProductResponse>(result.Value));
     }
 
     [HttpGet("{id}")]

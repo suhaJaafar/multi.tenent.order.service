@@ -118,11 +118,7 @@ public class UserController : ControllerBase
             return BadRequest(result.Error);
         }
 
-        // Return the full user information instead of just the ID
-        return CreatedAtAction(
-            nameof(GetUser), 
-            new { id = result.Value.Id }, 
-            result.Value);
+        return Ok(result.Value);
     }
 
     [HttpGet("{id}")]
